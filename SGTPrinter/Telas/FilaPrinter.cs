@@ -11,7 +11,7 @@ namespace SGTPrinter.Telas
 {
     public class FilaPrinter : IDisposable
     {
-        Timer timer;
+        static Timer timer;
         public FilaPrinter()
         {
 
@@ -22,23 +22,29 @@ namespace SGTPrinter.Telas
             MongoDb.Connect();
             var builders = Builders<FilaImpressao>.Filter;
             var filter = builders.In(x => x.idLoja, loja.Split(';')) & builders.Eq(x => x.status, true) & builders.In(x => x.tipo, tipo.Split(';'));
-            var timer = new System.Threading.Timer(
+            timer = new System.Threading.Timer(
                 e => Gravar(MongoDb.List<FilaImpressao>(FilaImpressao.tabela, filter), destino),
                 null,
                 TimeSpan.Zero,
-                TimeSpan.FromSeconds(20));
+                TimeSpan.FromSeconds(10));
         }
 
         static void Gravar(IList<FilaImpressao> documents, string destino)
         {
+            Console.Clear();
+
+            Console.WriteLine(MainClass.ultPedido);
+            Console.WriteLine(DateTime.Now);
+            Console.WriteLine(MainClass.erroMessage);
+
             if (documents != null && documents.Count > 0)
             {
                 var update = Builders<FilaImpressao>.Update.Set("status", false);
                 foreach (var item in documents)
                 {
                     Tools.WriteFile(Path.Combine(destino, item.tipo + "-" + item.idVenda + ".txt"), item.buffer);
+                    MainClass.ultPedido = item.buffer;
                     MongoDb.Update<FilaImpressao>(FilaImpressao.tabela, "{_id:'" + item.Id + "'}", update);
-
                 }
             }
         }

@@ -19,8 +19,19 @@ namespace SGTPrinter.Functions
 
         public static IList<T> List<T>(string tabela, FilterDefinition<T> filter)
         {
-            var collection = database.GetCollection<T>(tabela);
-            return collection.Find(filter).ToList();
+            
+            try
+            {
+                var collection = database.GetCollection<T>(tabela);
+                MainClass.erroMessage = "";
+                return collection.Find(filter).ToList();
+
+            }
+            catch (Exception ex)
+            {
+                MainClass.erroMessage =ex.Message;
+                return null;
+            } 
             //return collection.Find(x => x.status == true && x.tipo == "3" && x.idLoja == "1").ToList();
 
             //IList<FilaImpressao> documents = 
@@ -42,9 +53,12 @@ namespace SGTPrinter.Functions
         }
         public static void Connect()
         {
+            var parametros = MainClass.parametrosIni;
             var credential = MongoCredential.CreateCredential("SGTVendas", "rafael", "rafa@123");
+            //var credential = MongoCredential.CreateCredential("SGTVendas", "rafael", "rafa@123");
             MongoClientSettings settings = new MongoClientSettings();
-            settings.Server = new MongoServerAddress("jrsilva2306.ddns-intelbras.com.br", 9899);
+            settings.Server = new MongoServerAddress(parametros.host, parametros.port);
+            //settings.Server = new MongoServerAddress("jrsilva2306.ddns-intelbras.com.br", 9899);
             settings.Credential = credential;
             client = new MongoClient(settings);
             database = client.GetDatabase("SGTVendas");

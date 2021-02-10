@@ -7,6 +7,7 @@ using SGTPrinter.Functions;
 using SGTPrinter.model;
 using SGTPrinter.Telas;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace SGTPrinter
 {
@@ -14,9 +15,14 @@ namespace SGTPrinter
     {
         static string pathDanfe;
         static string pathApp;
-        static ParametrosIni parametrosIni;
-        public static void Main(string[] args)
+        public static ParametrosIni parametrosIni;
+        public static string ultPedido = "";
+        public static string erroMessage = "";
+
+        static readonly CancellationTokenSource Cts = new CancellationTokenSource(); 
+         static async Task Main(string[] args)
         {
+            Console.WriteLine(DateTime.Now);
             pathApp = AppDomain.CurrentDomain.BaseDirectory;
             try
             {
@@ -44,7 +50,8 @@ namespace SGTPrinter
                         FilaPrinter.Buscar(parametrosIni.impRetira, parametrosIni.idLoja, "6");
 
                 //FilaPrinter.Buscar(Path.Combine(pathNFE, "SGT", "Impressora"), "1;2", "1;3");
-                Thread.Sleep(Timeout.Infinite);
+                //Thread.Sleep(Timeout.Infinite);
+                await Task.Delay(Timeout.Infinite, Cts.Token).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -57,11 +64,11 @@ namespace SGTPrinter
         {
             try
             {
-                var pasta = DateTime.Now.Year.ToString() + DateTime.Now.Day.ToString().PadLeft(2, '0');
+                var pasta = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0');
                 FileSystemWatcher watcher = new FileSystemWatcher();
-                watcher.Path = Path.Combine(parametrosIni.uninfe, "nfe", "Enviado/Autorizados/", pasta);
+                watcher.Path = Path.Combine(parametrosIni.uninfe, "Enviado","Autorizados", pasta);
                 watcher.NotifyFilter = NotifyFilters.CreationTime;
-                watcher.Filter = "*-nfe.xml";
+                watcher.Filter = "*-procNFe.xml";
                 watcher.Changed += new FileSystemEventHandler(OnChangedNFE);
                 watcher.EnableRaisingEvents = true;
             }

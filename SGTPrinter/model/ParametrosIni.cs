@@ -5,7 +5,7 @@ namespace SGTPrinter.model
     {
         public string idLoja { get; set; }
         public string host { get; set; }
-        public string port { get; set; }
+        public int port { get; set; }
         public string uninfe { get; set; }
         public string impRetira { get; set; }
         public string impEntrega { get; set; }
