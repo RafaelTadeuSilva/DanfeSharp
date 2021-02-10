@@ -120,6 +120,7 @@
     <Compile Include="Telas\FilaPrinter.cs" />
     <Compile Include="Telas\DanfePrinter.cs" />
     <Compile Include="model\ParametrosIni.cs" />
+    <Compile Include="Functions\RawPrinterHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DanfeSharp\DanfeSharp.csproj">
