@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanfeSharp", "DanfeSharp\Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanfeSharp.Test", "DanfeSharp.Test\DanfeSharp.Test.csproj", "{1A33BF3B-7471-4293-9276-B73913B7F2F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGTPrinter", "SGTPrinter\SGTPrinter.csproj", "{753386F2-C38C-4FB0-90E3-5BCC47375F68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1A33BF3B-7471-4293-9276-B73913B7F2F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A33BF3B-7471-4293-9276-B73913B7F2F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A33BF3B-7471-4293-9276-B73913B7F2F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{753386F2-C38C-4FB0-90E3-5BCC47375F68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{753386F2-C38C-4FB0-90E3-5BCC47375F68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{753386F2-C38C-4FB0-90E3-5BCC47375F68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{753386F2-C38C-4FB0-90E3-5BCC47375F68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
